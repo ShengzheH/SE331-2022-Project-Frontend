@@ -6,31 +6,31 @@
         <ul>
           <li>
             <br />
-            <div class="title">First_dose</div>
-            <div class="value">{{ firstdose(patient.First_dose) }}</div>
+            <div class="title">First Dose</div>
+            <div class="value">
+              {{ dose(patient.vaccineinfo.firstdose_name) }}
+            </div>
           </li>
           <li>
-            <div class="title">Vaccination Name</div>
-            <div class="value">{{ patient.First_type }}</div>
-          </li>
-          <li>
-            <div class="title">Vaccination date</div>
-            <div class="value">{{ patient.First_dose_time }}</div>
+            <div class="title">First Dose Date</div>
+            <div class="value">
+              {{ time(patient.vaccineinfo.firstdose_time) }}
+            </div>
             <br />
           </li>
           <li>
-            <div class="title">Second_dose</div>
-            <div class="value">{{ firstdose(patient.Second_dose) }}</div>
+            <div class="title">Second Dose</div>
+            <div class="value">
+              {{ dose(patient.vaccineinfo.seconddose_name) }}
+            </div>
           </li>
           <li>
-            <div class="title">Vaccination Name</div>
-            <div class="value">{{ patient.Second_type }}</div>
+            <div class="title">Second Dose</div>
+            <div class="value">
+              {{ time(patient.vaccineinfo.seconddose_time) }}
+            </div>
           </li>
           <br />
-          <li>
-            <div class="title">Vaccination date</div>
-            <div class="value">{{ patient.Second_dose_time }}</div>
-          </li>
         </ul>
       </div>
     </div>
@@ -45,9 +45,9 @@ export default {
     vaccine() {
       this.GStore.flashMessage =
         'You are successfully return to ' +
-        this.patient.Name +
+        this.patient.name +
         ' ' +
-        this.patient.Surname
+        this.patient.sur_name
       setTimeout(() => {
         this.GStore.flashMessage = ''
       }, 3000)
@@ -58,10 +58,16 @@ export default {
     }
   },
   computed: {
-    firstdose() {
+    dose() {
       return function (dose) {
-        if (dose) return 'Get'
-        else return 'Not Yet'
+        if (!dose) return 'Not Vaccinated'
+        else return dose
+      }
+    },
+    time() {
+      return function (time) {
+        if (!time) return 'None'
+        else return time
       }
     },
     imgURL() {

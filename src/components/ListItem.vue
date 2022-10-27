@@ -5,13 +5,9 @@
       <div class="list-item">
         <ul>
           <li>
-            <div class="name">{{ patient.name }} {{ patient.sur_name }}</div>
-          </li>
-          <li>
-            <br />
-            <div class="status">The status of vaccined:</div>
-          </li>
-          <li>
+            <div class="name">Name:{{ patient.name }}</div>
+            <div class="name">Surname:{{ patient.sur_name }}</div>
+            <div class="name">The status of vaccined:</div>
             <div class="value">{{ patient.vaccineinfo.vaccined_status }}</div>
           </li>
         </ul>
