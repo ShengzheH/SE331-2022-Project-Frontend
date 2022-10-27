@@ -1,7 +1,7 @@
 <template>
   <div class="background">
     <div class="home">
-      <h1>patient's covid-19 vaccination status</h1>
+      <h1>The Patient who had Vaccinated</h1>
       <div class="home-list">
         <ListItem
           v-for="patient in patients"

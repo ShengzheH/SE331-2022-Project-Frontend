@@ -17,12 +17,12 @@
           </li>
           <li>
             <div class="title">Age</div>
-            <div class="value">{{ patient.Age }}</div>
+            <div class="value">{{ patient.age }}</div>
             <br />
           </li>
           <li>
             <div class="title">Home Town</div>
-            <div class="value">{{ patient.Home_town }}</div>
+            <div class="value">{{ patient.hometown }}</div>
           </li>
         </ul>
         <br />
@@ -111,7 +111,7 @@ li {
 }
 .title {
   position: absolute;
-  width: 35%;
+  width: 15%;
   text-align: center;
   text-align-last: center;
 }
