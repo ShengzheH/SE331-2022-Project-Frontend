@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import AboutView from '../views/AboutView.vue'
-import PeopleDetailView from '../views/PeopleDetailView.vue'
-import PeopleVaccineDetailView from '../views/PeopleVaccineDetailView'
+import PatientDetailView from '../views/PatientDetailView.vue'
+import PatientVaccineDetailView from '../views/PatientVaccineDetailView'
 import VaccineDetailView from '../views/VaccineDetailView.vue'
 import LayoutView from '../views/LayoutView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import NetWorkErrorView from '../views/NetworkErrorView.vue'
-import PeopleService from '../services/PeopleService.js'
+import PatientService from '../services/PatientService.js'
 import NProgress from 'nprogress'
 import GStore from '@/store'
 const routes = [
@@ -25,20 +25,20 @@ const routes = [
     component: AboutView
   },
   {
-    path: '/people/:id',
+    path: '/patient/:id',
     name: 'Layout',
     component: LayoutView,
     props: true,
     beforeEnter: (to) => {
-      return PeopleService.getPeople(to.params.id)
+      return PatientService.getPeople(to.params.id)
         .then((response) => {
-          GStore.people = response.data
+          GStore.patient = response.data
         })
         .catch((error) => {
           if (error.response && error.response.status == 404) {
             this.$router.push({
               name: '404Resource',
-              params: { resoutce: 'people' }
+              params: { resoutce: 'patient' }
             })
           } else {
             this.$router.push({ name: 'NetworkError' })
@@ -48,14 +48,14 @@ const routes = [
     children: [
       {
         path: '',
-        name: 'PeopleDetail',
-        component: PeopleDetailView,
+        name: 'PatientDetail',
+        component: PatientDetailView,
         props: true
       },
       {
         path: '',
-        name: 'PeopleVaccineDetail',
-        component: PeopleVaccineDetailView,
+        name: 'PatientVaccineDetail',
+        component: PatientVaccineDetailView,
         props: true
       }
     ]

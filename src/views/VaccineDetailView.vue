@@ -8,20 +8,20 @@
       </h2>
       <div class="home-list">
         <FirstDose
-          v-for="people in peoples"
-          :key="people.id"
-          :people="people"
+          v-for="patient in patients"
+          :key="patient.id"
+          :patient="patient"
         />
       </div>
       <h2>
-        Number of people vaccinated with second dose vaccine :
+        Number of patient vaccinated with second dose vaccine :
         {{ this.second_dose }}
       </h2>
       <div class="home-list">
         <SecondDose
-          v-for="people in peoples"
-          :key="people.id"
-          :people="people"
+          v-for="patient in patients"
+          :key="patient.id"
+          :patient="patient"
         />
       </div>
     </div>
@@ -32,7 +32,7 @@
 // @ is an alias to /src
 import FirstDose from '@/components/FirstDose.vue'
 import SecondDose from '@/components/SecondDose.vue'
-import PeopleService from '@/services/PeopleService.js'
+import PatientService from '@/services/PatientService.js'
 import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'HomeView',
@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      peoples: null,
+      patients: null,
       first_dose: 0,
       second_dose: 0,
       length: 0
@@ -50,13 +50,13 @@ export default {
   },
   created() {
     watchEffect(() => {
-      PeopleService.getTotalPeoples().then((response) => {
-        this.peoples = response.data
-        for (let i = 0; i < this.peoples.length; i++) {
-          if (this.peoples[i].First_dose == true) {
+      PatientService.getTotalPeoples().then((response) => {
+        this.patients = response.data
+        for (let i = 0; i < this.patients.length; i++) {
+          if (this.patients[i].First_dose == true) {
             this.first_dose = this.first_dose + 1
           }
-          if (this.peoples[i].Second_dose == true) {
+          if (this.patients[i].Second_dose == true) {
             this.second_dose = this.second_dose + 1
           }
         }
