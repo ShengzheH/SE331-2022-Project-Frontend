@@ -4,12 +4,6 @@ import router from './router'
 import GStore from './store'
 import 'nprogress/nprogress.css'
 // createApp(App).use(router).provide('GStore', GStore).mount('#app')
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import GStore from './store'
-import 'nprogress/nprogress.css'
-
 import upperFirst from 'lodash/upperFirst'
 import camelCase from 'lodash/camelCase'
 import 'bootstrap'
@@ -37,4 +31,3 @@ app
   .component('font-awesome-icon', FontAwesomeIcon)
   .provide('GStore', GStore)
   .mount('#app')
-
