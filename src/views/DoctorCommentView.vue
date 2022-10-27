@@ -21,11 +21,11 @@
 
 <script>
 import EventService from '@/services/EventService.js'
-import UploadImages from 'vue-upload-drop-images'
+// import UploadImages from 'vue-upload-drop-images'
 export default {
   inject: ['GStore'],
   components: {
-    UploadImages
+    // UploadImages
   },
   data() {
     return {

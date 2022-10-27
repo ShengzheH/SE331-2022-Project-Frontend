@@ -25,7 +25,7 @@
             </div>
           </li>
           <li>
-            <div class="title">Second Dose</div>
+            <div class="title">Second Dose Date</div>
             <div class="value">
               {{ time(patient.vaccineinfo.seconddose_time) }}
             </div>
@@ -34,6 +34,12 @@
         </ul>
       </div>
     </div>
+    <BaseInput
+      v-model="vaccineinfo.seconddose_name"
+      type="text"
+      label="data"
+      class="field"
+    />
     <button @click="vaccine">hhh</button>
   </div>
 </template>
@@ -41,20 +47,28 @@
 export default {
   props: ['id', 'patient'],
   inject: ['GStore'],
+  data() {
+    return {
+      vaccineinfo: {
+        seconddose_name: ''
+      }
+    }
+  },
   methods: {
     vaccine() {
-      this.GStore.flashMessage =
-        'You are successfully return to ' +
-        this.patient.name +
-        ' ' +
-        this.patient.sur_name
-      setTimeout(() => {
-        this.GStore.flashMessage = ''
-      }, 3000)
-      this.$router.push({
-        name: 'PatientDetail',
-        params: { id: this.patient.id }
-      })
+      // this.GStore.flashMessage =
+      //   'You are successfully return to ' +
+      //   this.patient.name +
+      //   ' ' +
+      //   this.patient.sur_name
+      // setTimeout(() => {
+      //   this.GStore.flashMessage = ''
+      // }, 3000)
+      // this.$router.push({
+      //   name: 'PatientDetail',
+      //   params: { id: this.patient.id }
+      // })
+      console.log(this.vaccineinfo.seconddose_name)
     }
   },
   computed: {
