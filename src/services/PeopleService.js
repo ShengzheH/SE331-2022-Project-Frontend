@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:4004',
+  baseURL: 'http://localhost:8080',
   withCredentials: false,
   headers: {
     Accept: 'application/json',
@@ -11,12 +11,12 @@ const apiClient = axios.create({
 
 export default {
   getTotalPeoples() {
-    return apiClient.get('/peoples')
+    return apiClient.get('/patients')
   },
   getPeople(id) {
-    return apiClient.get('/peoples/' + id)
+    return apiClient.get('/patient/' + id)
   },
   getPeoples(perPage, page) {
-    return apiClient.get('/peoples?_limit=' + perPage + '&_page=' + page)
+    return apiClient.get('/patients?_limit=' + perPage + '&_page=' + page)
   }
 }

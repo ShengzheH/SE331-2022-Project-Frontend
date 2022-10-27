@@ -1,9 +1,13 @@
 <template>
   <div class="background">
     <div class="home">
-      <h1>People's covid-19 vaccination status</h1>
+      <h1>patient's covid-19 vaccination status</h1>
       <div class="home-list">
-        <ListItem v-for="people in peoples" :key="people.id" :people="people" />
+        <ListItem
+          v-for="patient in patients"
+          :key="patient.id"
+          :patient="patient"
+        />
       </div>
       <router-link
         id="page-prev"
@@ -49,7 +53,7 @@ export default {
   },
   data() {
     return {
-      peoples: null,
+      patients: null,
       totalitems: 0
     }
   },
@@ -58,7 +62,7 @@ export default {
     PeopleService.getPeoples(5, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
-          comp.peoples = response.data
+          comp.patients = response.data
           comp.totalitems = response.headers['x-total-count']
         })
       })
@@ -70,7 +74,7 @@ export default {
   beforeRouteUpdate(routeTo, routeFrom, next) {
     PeopleService.getPeoples(5, parseInt(routeTo.query.page) || 1)
       .then((response) => {
-        this.peoples = response.data
+        this.patients = response.data
         this.totalitems = response.headers['x-total-count']
         next()
       })
