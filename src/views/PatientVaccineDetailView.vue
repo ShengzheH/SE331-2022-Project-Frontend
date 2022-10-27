@@ -6,46 +6,71 @@
         <ul>
           <li>
             <br />
-            <div class="title">Name</div>
-            <div class="value">{{ people.Name }}</div>
+            <div class="title">First_dose</div>
+            <div class="value">{{ firstdose(patient.First_dose) }}</div>
+          </li>
+          <li>
+            <div class="title">Vaccination Name</div>
+            <div class="value">{{ patient.First_type }}</div>
+          </li>
+          <li>
+            <div class="title">Vaccination date</div>
+            <div class="value">{{ patient.First_dose_time }}</div>
             <br />
           </li>
           <li>
-            <div class="title">SurName</div>
-            <div class="value">{{ people.Surname }}</div>
-            <br />
+            <div class="title">Second_dose</div>
+            <div class="value">{{ firstdose(patient.Second_dose) }}</div>
           </li>
           <li>
-            <div class="title">Age</div>
-            <div class="value">{{ people.Age }}</div>
-            <br />
+            <div class="title">Vaccination Name</div>
+            <div class="value">{{ patient.Second_type }}</div>
           </li>
+          <br />
           <li>
-            <div class="title">Home Town</div>
-            <div class="value">{{ people.Home_town }}</div>
+            <div class="title">Vaccination date</div>
+            <div class="value">{{ patient.Second_dose_time }}</div>
           </li>
         </ul>
-        <br />
       </div>
     </div>
+    <button @click="vaccine">hhh</button>
   </div>
 </template>
 <script>
 export default {
-  props: ['people'],
+  props: ['id', 'patient'],
+  inject: ['GStore'],
+  methods: {
+    vaccine() {
+      this.GStore.flashMessage =
+        'You are successfully return to ' +
+        this.patient.Name +
+        ' ' +
+        this.patient.Surname
+      setTimeout(() => {
+        this.GStore.flashMessage = ''
+      }, 3000)
+      this.$router.push({
+        name: 'PatientDetail',
+        params: { id: this.patient.id }
+      })
+    }
+  },
   computed: {
+    firstdose() {
+      return function (dose) {
+        if (dose) return 'Get'
+        else return 'Not Yet'
+      }
+    },
     imgURL() {
-      return require('../assets/' + this.people.id + '.jpg')
+      return require('../assets/' + this.patient.id + '.jpg')
     }
   }
 }
 </script>
 <style scoped>
-.name {
-  color: green;
-  font: bold;
-  font-size: 20px;
-}
 #building {
   display: flex;
   flex-direction: column;
@@ -67,8 +92,9 @@ export default {
   text-align: left;
   float: right;
   position: absolute;
-  width: 300px;
-  margin: 10px 0 0 190px;
+  width: 400px;
+  height: 180px;
+  margin: 10px 0 0 100px;
 }
 .left-nav {
   float: left;
@@ -77,7 +103,7 @@ export default {
   background-color: #fff;
   padding: 3px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  margin: 20px 0 10px 100px;
+  margin: 20px 0 10px 30px;
   box-sizing: border-box;
   border-radius: 50%;
 }
@@ -111,17 +137,17 @@ li {
 }
 .title {
   position: absolute;
-  width: 35%;
+  width: 50%;
   text-align: center;
   text-align-last: center;
 }
 .title:before {
   position: absolute;
-  left: 100%;
+  left: 90%;
   content: '\FF1A';
 }
 .value {
-  padding-left: 40%;
+  padding-left: 50%;
   color: green;
 }
 .name {

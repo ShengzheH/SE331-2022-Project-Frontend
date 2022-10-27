@@ -1,5 +1,5 @@
 <template>
-  <router-link :to="{ name: 'PeopleDetail', params: { id: patient.id } }">
+  <router-link :to="{ name: 'PatientDetail', params: { id: patient.id } }">
     <div id="building">
       <div class="left-nav"><img :src="imgURl" /></div>
       <div class="list-item">

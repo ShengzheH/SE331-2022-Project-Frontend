@@ -39,7 +39,7 @@
 <script>
 // @ is an alias to /src
 import ListItem from '@/components/ListItem.vue'
-import PeopleService from '@/services/PeopleService.js'
+import PatientService from '@/services/PatientService.js'
 export default {
   name: 'HomeView',
   props: {
@@ -59,7 +59,7 @@ export default {
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(routeTo, routeFrom, next) {
-    PeopleService.getPeoples(5, parseInt(routeTo.query.page) || 1)
+    PatientService.getPeoples(5, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
           comp.patients = response.data
@@ -72,7 +72,7 @@ export default {
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    PeopleService.getPeoples(5, parseInt(routeTo.query.page) || 1)
+    PatientService.getPeoples(5, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         this.patients = response.data
         this.totalitems = response.headers['x-total-count']
