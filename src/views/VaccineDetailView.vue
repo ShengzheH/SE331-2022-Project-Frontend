@@ -1,5 +1,10 @@
 <template>
   <div class="background">
+    <VaccineItem
+      v-for="vaccine in vaccines"
+      :key="vaccine.id"
+      :vaccine="vaccine"
+    ></VaccineItem>
     <div class="home">
       <h1>People who have been vaccinated with the defferent doses</h1>
       <h2>
@@ -32,17 +37,19 @@
 // @ is an alias to /src
 import FirstDose from '@/components/FirstDose.vue'
 import SecondDose from '@/components/SecondDose.vue'
-import PatientService from '@/services/PatientService.js'
+import VaccineItem from '@/components/VaccineItem.vue'
+import VaccineService from '@/services/VaccineService.js'
 import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'HomeView',
   components: {
     FirstDose,
-    SecondDose
+    SecondDose,
+    VaccineItem
   },
   data() {
     return {
-      patients: null,
+      vaccines: [],
       first_dose: 0,
       second_dose: 0,
       length: 0
@@ -50,16 +57,8 @@ export default {
   },
   created() {
     watchEffect(() => {
-      PatientService.getTotalPeoples().then((response) => {
-        this.patients = response.data
-        for (let i = 0; i < this.patients.length; i++) {
-          if (this.patients[i].First_dose == true) {
-            this.first_dose = this.first_dose + 1
-          }
-          if (this.patients[i].Second_dose == true) {
-            this.second_dose = this.second_dose + 1
-          }
-        }
+      VaccineService.getTotalVaccines().then((response) => {
+        this.vaccines = response.data
       })
     })
   }
