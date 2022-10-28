@@ -1,7 +1,6 @@
 <template>
-  <div class="background">
+  <div>
     <div id="building">
-      <div class="left-nav"><img :src="imgURL" /></div>
       <div class="list-item">
         <ul>
           <li>
@@ -32,12 +31,7 @@
 </template>
 <script>
 export default {
-  props: ['doctor'],
-  computed: {
-    imgURL() {
-      return require('../assets/' + this.doctor.id + '.jpg')
-    }
-  }
+  props: ['doctor']
 }
 </script>
 <style scoped>
