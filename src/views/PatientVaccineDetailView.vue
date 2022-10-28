@@ -34,26 +34,14 @@
         </ul>
       </div>
     </div>
-    <BaseInput
-      v-model="vaccineinfo.seconddose_name"
-      type="text"
-      label="data"
-      class="field"
-    />
-    <button @click="vaccine">hhh</button>
+    <button @click="vaccine">submit</button>
   </div>
 </template>
 <script>
 export default {
   props: ['id', 'patient'],
   inject: ['GStore'],
-  data() {
-    return {
-      vaccineinfo: {
-        seconddose_name: ''
-      }
-    }
-  },
+
   methods: {
     vaccine() {
       // this.GStore.flashMessage =
