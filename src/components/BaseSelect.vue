@@ -1,5 +1,5 @@
 <template>
-  <label v-if="label">{{ label }}</label>
+  <label v-if="label"></label>
   <select
     class="field"
     :value="modelValue"
@@ -12,7 +12,7 @@
   >
     <option
       v-for="option in options"
-      :value="option.id"
+      :value="option.name"
       :key="option.id"
       :selected="option.id === modelValue.id"
     >

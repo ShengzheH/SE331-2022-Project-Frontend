@@ -12,7 +12,7 @@
             </div>
           </li>
           <li>
-            <div class="title">First Dose Date</div>
+            <div class="title">First Dose Time</div>
             <div class="value">
               {{ time(patient.vaccineinfo.firstdose_time) }}
             </div>
@@ -25,7 +25,7 @@
             </div>
           </li>
           <li>
-            <div class="title">Second Dose Date</div>
+            <div class="title">Second Dose Time</div>
             <div class="value">
               {{ time(patient.vaccineinfo.seconddose_time) }}
             </div>
@@ -34,99 +34,126 @@
         </ul>
       </div>
     </div>
-    <h2>Please add the info!</h2>
+    <h2>You can update patient's vaccina info!</h2>
     <div id="building1">
-      <div class="left-nav"><img :src="imgURL" /></div>
       <div class="list-item">
         <ul>
           <li>
             <br />
-            <div class="title">First Dose</div>
+            <div class="title">First Dose Name</div>
             <div class="value">
               <div v-if="patient.vaccineinfo.firstdose_name">
                 {{ dose(patient.vaccineinfo.firstdose_name) }}
               </div>
               <div v-else>
-                <input
+                <BaseInput
+                  v-model="vaccineinfo.firstdose_name"
                   type="text"
-                  value=""
-                  class="input_control"
-                  placeholder="input"
-                  name="firstdose_name"
-                  @input="print($event.target.value)"
+                  label="second dose time"
+                  class="field"
                 />
               </div>
             </div>
           </li>
           <li>
-            <div class="title">First Dose Date</div>
+            <div class="title">First Dose Time</div>
             <div class="value">
               <div v-if="patient.vaccineinfo.firstdose_time">
                 {{ dose(patient.vaccineinfo.firstdose_time) }}
               </div>
               <div v-else>
-                <input
+                <BaseInput
+                  v-model="vaccineinfo.firstdose_time"
                   type="text"
-                  value=""
-                  class="input_control"
-                  placeholder="input"
-                  name="firstdose_time"
-                  @input="print($event.target.value)"
+                  label="second dose time"
+                  class="field"
                 />
               </div>
             </div>
             <br />
           </li>
           <li>
-            <div class="title">Second Dose</div>
+            <div class="title">Second Dose Name</div>
             <div class="value">
               <div v-if="patient.vaccineinfo.seconddose_name">
                 {{ dose(patient.vaccineinfo.seconddose_name) }}
               </div>
               <div v-else>
-                <input
+                <BaseInput
+                  v-model="vaccineinfo.seconddose_name"
                   type="text"
-                  value=""
-                  class="input_control"
-                  placeholder="input"
-                  name="seconddose_name"
-                  @input="print($event.target.value)"
+                  label="second dose name"
+                  class="field"
                 />
               </div>
             </div>
           </li>
           <li>
-            <div class="title">Second Dose</div>
+            <div class="title">Second Dose Time</div>
             <div class="value">
               <div v-if="patient.vaccineinfo.seconddose_time">
                 {{ dose(patient.vaccineinfo.firstdose_time) }}
               </div>
               <div v-else>
-                <input
+                <BaseInput
+                  v-model="vaccineinfo.seconddose_time"
+                  type="text"
+                  label="second dose time"
+                  class="field"
+                />
+                <!-- <input
                   type="text"
                   value=""
                   class="input_control"
-                  placeholder="input"
+                  placeholder="please input second dose time"
                   name="seconddose_time"
                   @input="print($event.target.value)"
-                />
+                /> -->
               </div>
+            </div>
+          </li>
+          <li>
+            <div class="title">Vaccined Status</div>
+            <div class="value">
+              <div v-if="patient.vaccineinfo.seconddose_time">
+                {{ dose(patient.vaccineinfo.firstdose_time) }}
+              </div>
+              <BaseSelect
+                :options="this.Status"
+                v-model="vaccineinfo.vaccined_status"
+                label="Select an Organizer"
+              />
             </div>
           </li>
           <br />
         </ul>
       </div>
     </div>
-    <button @click="vaccine">Return</button>
+    <button @click="vaccine1">Return</button>
   </div>
 </template>
 <script>
 export default {
   props: ['id', 'patient'],
   inject: ['GStore'],
-
+  data() {
+    return {
+      vaccineinfo: {
+        firstdose_name: '',
+        firstdose_time: '',
+        seconddose_name: '',
+        seconddose_time: '',
+        vaccined_status: ''
+      },
+      Status: [
+        { id: '1', name: 'Not Vaccinated' },
+        { id: '2', name: 'FirstDose' },
+        { id: '3', name: 'SecondDose' }
+      ]
+    }
+  },
   methods: {
-    vaccine() {
+    vaccine1() {
       // this.GStore.flashMessage =
       //   'You are successfully return to ' +
       //   this.patient.name +
@@ -139,7 +166,13 @@ export default {
       //   name: 'PatientDetail',
       //   params: { id: this.patient.id }
       // })
-      console.log(this.vaccineinfo.seconddose_name)
+      if (this.vaccineinfo.firstdose_name == '')
+        this.vaccineinfo.firstdose_name =
+          this.patient.vaccineinfo.firstdose_name
+      if (this.vaccineinfo.firstdose_time == '')
+        this.vaccineinfo.firstdose_time =
+          this.patient.vaccineinfo.firstdose_time
+      console.log(this.vaccineinfo)
     }
   },
   computed: {
@@ -196,7 +229,7 @@ export default {
   /* background-color: blanchedalmond; */
 }
 .input_control {
-  width: 200px;
+  width: 150px;
   margin: 10px auto;
   box-sizing: border-box;
   text-align: center;
