@@ -1,5 +1,20 @@
 <template>
   <div class="background">
+    <div width="1600" class="mytable">
+      <table>
+        <tr align="center">
+          <th class="id_center">Id</th>
+          <th width="300">Name</th>
+          <th width="200">Vaccined_status</th>
+          <th width="350">Firstdose_name</th>
+          <th width="150">Firstdose_time</th>
+          <th width="350">Seconddose_name</th>
+          <th width="150">Deconddose_time</th>
+          <th width="300">Update</th>
+        </tr>
+      </table>
+    </div>
+    <br />
     <VaccineItem
       v-for="vaccine in vaccines"
       :key="vaccine.id"
@@ -70,7 +85,14 @@ export default {
   flex-direction: column;
   align-items: center;
 }
-
+.mytable {
+  margin: 0, auto;
+  display: flex;
+  text-align: center;
+}
+.id_center {
+  padding-left: 150px;
+}
 .pagination {
   display: flex;
   width: 290px;

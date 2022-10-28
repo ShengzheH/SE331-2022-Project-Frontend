@@ -4,7 +4,8 @@
   </div>
   <div>
     <nav>
-      <router-link :to="{ name: 'home' }">Home</router-link> |
+      <router-link :to="{ name: 'home' }">Patient</router-link> |
+      <router-link :to="{ name: 'DoctorDetailView' }">Doctor</router-link> |
       <router-link :to="{ name: 'VaccineDetail' }">Vaccine</router-link> |
       <router-link :to="{ name: 'about' }">About us</router-link>
     </nav>
@@ -45,7 +46,7 @@ body {
 }
 
 body {
-  background: url('./assets/bc.jpg');
+  /* background: url('./assets/bc.jpg'); */
   width: 100%;
   height: 100%;
   background-position: absolute;

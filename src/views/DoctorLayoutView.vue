@@ -1,5 +1,5 @@
 <template>
-  <div class="background" v-if="GStore.patient">
+  <div class="background" v-if="GStore.doctor">
     <div id="nav">
       <router-link :to="{ name: 'DoctorPatientDetail' }"
         >DoctorPatientDetail</router-link
@@ -8,7 +8,7 @@
         >DoctorComment</router-link
       >
     </div>
-    <router-view :patient="GStore.patient" />
+    <router-view :patient="GStore.doctor" />
   </div>
 </template>
 <script>

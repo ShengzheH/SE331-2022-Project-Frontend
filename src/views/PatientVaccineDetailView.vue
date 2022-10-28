@@ -184,7 +184,7 @@ export default {
   background-size: 100% 100%;
   /* background-color: blanchedalmond; */
 }
-/*¹ÜÀíÔ±ÊäÈëĞÅÏ¢¿òµÄÑùÊ½*/
+/*ï¿½ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½Ê½*/
 #building1 {
   display: flex;
   flex-direction: column;

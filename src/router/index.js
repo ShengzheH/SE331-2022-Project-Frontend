@@ -12,6 +12,7 @@ import DoctorLayoutView from '@/views/DoctorLayoutView'
 import DoctorCommentView from '@/views/DoctorCommentView'
 import DoctorPatientView from '@/views/DoctorPatientView'
 import DoctorPatientDetailView from '@/views/DoctorPatientDetailView'
+import DoctorDetailView from '@/views/DoctorDetailView'
 import NProgress from 'nprogress'
 import GStore from '@/store'
 const routes = [
@@ -87,13 +88,13 @@ const routes = [
     },
     children: [
       {
-        path: '',
+        path: '/DoctorPatientDetai',
         name: 'DoctorPatientDetailView',
         component: DoctorPatientDetailView,
         props: true
       },
       {
-        path: '',
+        path: '/DoctorComment',
         name: 'DoctorCommentView',
         component: DoctorCommentView,
         props: true
@@ -101,13 +102,19 @@ const routes = [
     ]
   },
   {
-    path: '',
+    path: '/VaccineDetail',
     name: 'VaccineDetail',
     component: VaccineDetailView,
     props: true
   },
   {
-    path: '',
+    path: '/',
+    name: 'DoctorDetailView',
+    component: DoctorDetailView,
+    props: true
+  },
+  {
+    path: '/DoctorPatient',
     name: 'DoctorPatientView',
     component: DoctorPatientView,
     props: true

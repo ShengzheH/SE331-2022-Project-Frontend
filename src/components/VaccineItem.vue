@@ -1,16 +1,23 @@
 <template>
-  <h1></h1>
-  <h2></h2>
-  <li>
-    <span>{{ vaccine.id }}</span> |
-    <span>{{ vaccine.patient.name }} {{ vaccine.patient.sur_name }}</span> |
-    <span>{{ vaccine.vaccined_status }}</span>
-    <span>{{ vaccine.firstdose_name }}</span>
-    <span>{{ vaccine.firstdose_time }}</span>
-    <span>{{ vaccine.seconddose_name }}</span>
-    <span>{{ vaccine.seconddose_time }}</span>
-    <button>Update</button>
-  </li>
+  <div class="mytable" width="1600">
+    <h1></h1>
+    <h2></h2>
+    <table>
+      <tr align="center">
+        <th class="id_center" width="50">{{ vaccine.id }}</th>
+        <th width="300">
+          {{ vaccine.patient.name }} {{ vaccine.patient.sur_name }}
+        </th>
+        <th width="200">{{ vaccine.vaccined_status }}</th>
+        <th width="350">{{ vaccine.firstdose_name }}</th>
+        <th width="150">{{ vaccine.firstdose_time }}</th>
+        <th width="350">{{ vaccine.seconddose_name }}</th>
+        <th width="150">{{ vaccine.seconddose_time }}</th>
+        <th width="300"><button>Update</button></th>
+      </tr>
+      <br />
+    </table>
+  </div>
 </template>
 <script>
 export default {
@@ -39,6 +46,14 @@ export default {
   color: green;
   font: bold;
   font-size: 20px;
+}
+.mytable {
+  margin: 0, auto;
+  display: flex;
+  text-align: center;
+}
+.id_center {
+  padding-left: 150px;
 }
 #building {
   display: flex;
