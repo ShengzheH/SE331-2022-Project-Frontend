@@ -49,7 +49,7 @@
                 <BaseInput
                   v-model="vaccineinfo.firstdose_name"
                   type="text"
-                  label="second dose time"
+                  label="first dose name"
                   class="field"
                 />
               </div>
@@ -65,7 +65,7 @@
                 <BaseInput
                   v-model="vaccineinfo.firstdose_time"
                   type="text"
-                  label="second dose time"
+                  label="first dose time"
                   class="field"
                 />
               </div>
