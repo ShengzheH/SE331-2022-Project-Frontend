@@ -8,6 +8,10 @@ import LayoutView from '../views/LayoutView.vue'
 import NotFoundView from '../views/NotFoundView.vue'
 import NetWorkErrorView from '../views/NetworkErrorView.vue'
 import PatientService from '../services/PatientService.js'
+import DoctorLayoutView from '@/views/DoctorLayoutView'
+import DoctorCommentView from '@/views/DoctorCommentView'
+import DoctorPatientView from '@/views/DoctorPatientView'
+import DoctorPatientDetailView from '@/views/DoctorPatientDetailView'
 import NProgress from 'nprogress'
 import GStore from '@/store'
 const routes = [
@@ -61,9 +65,51 @@ const routes = [
     ]
   },
   {
+    path: '/DoctorLayout/:id',
+    name: 'DoctorLayoutView',
+    component: DoctorLayoutView,
+    props: true,
+    beforeEnter: (to) => {
+      return PatientService.getPeople(to.params.id)
+        .then((response) => {
+          GStore.patient = response.data
+        })
+        .catch((error) => {
+          if (error.response && error.response.status == 404) {
+            this.$router.push({
+              name: '404Resource',
+              params: { resoutce: 'patient' }
+            })
+          } else {
+            this.$router.push({ name: 'NetworkError' })
+          }
+        })
+    },
+    children: [
+      {
+        path: '',
+        name: 'DoctorPatientDetailView',
+        component: DoctorPatientDetailView,
+        props: true
+      },
+      {
+        path: '',
+        name: 'DoctorCommentView',
+        component: DoctorCommentView,
+        props: true
+      }
+    ]
+  },
+  {
     path: '',
     name: 'VaccineDetail',
     component: VaccineDetailView,
+    props: true
+  },
+  {
+    path: '',
+    name: 'DoctorPatientView',
+    component: DoctorPatientView,
     props: true
   },
   {

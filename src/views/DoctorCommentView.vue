@@ -1,72 +1,51 @@
 <template>
-  <div>
-    <h1>Please leave your comments!</h1>
-    <form @submit.prevent="saveEvent">
-      <BaseInput
-        v-model="doctor.category"
-        type="text"
-        label="Category"
-        class="field"
-      />
-
-      <h3>Name & describe your event</h3>
-
-      <BaseInput v-model="doctor.comments" type="text" label="Comments" />
-      <button type="submit">Submit</button>
-    </form>
-
-    <pre>{{ event }}</pre>
-  </div>
+  <div class="background"></div>
+  <CommentList v-if="comments.length" :comments="comments"></CommentList>
+  <CommentForm @comment-submitted="addComment"></CommentForm>
 </template>
-
 <script>
-import EventService from '@/services/EventService.js'
-import UploadImages from 'vue-upload-drop-images'
+import CommentForm from '@/components/CommentForm.vue'
+import CommentList from '@/components/CommentList.vue'
 export default {
   inject: ['GStore'],
   components: {
-    UploadImages
+    CommentForm,
+    CommentList
   },
   data() {
     return {
-      doctor: {
-        category: '',
-        title: '',
-        description: '',
-        location: '',
-        organizer: { id: '', name: '' },
-        imageUrls: []
-      },
-      files: []
+      comments: []
     }
   },
   methods: {
-    saveEvent() {
-      Promise.all(
-        this.files.map((file) => {
-          return EventService.updateFile(file)
-        })
-      )
-        .then((response) => {
-          this.event.imageUrls = response.map((r) => r.data)
-          EventService.saveEvent(this.event).then((response) => {
-            console.log(response)
-            this.$router.push({
-              name: 'EventDetails',
-              params: { id: response.data.id }
-            })
-          })
-          this.GStore.flashMessage =
-            'You are succcessfully add a new event for ' + response.data.title
-          setTimeout(() => {
-            this.GStore.flashMessage = ''
-          }, 3000)
-        })
-        .catch(() => {
-          this.$router.push('NetworkError')
-        })
+    addComment(comment) {
+      this.comments.push(comment)
+      this.GStore.flashMessage = 'Your comment has been added'
+      setTimeout(() => {
+        this.GStore.flashMessage = ''
+      }, 3000)
+      this.$router.push({
+        name: 'DoctorComment'
+      })
     }
   }
 }
 </script>
-<style scoped></style>
+<style scoped>
+#building {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 500px;
+  height: 200px;
+  cursor: pointer;
+  border: 3px solid #a6abb1;
+  border-radius: 20px;
+  margin: auto;
+  text-align: center;
+  background-image: url('../assets/card.jpg');
+  background-position: absolute;
+  background-size: 100% 100%;
+  /* background-color: blanchedalmond; */
+}
+</style>

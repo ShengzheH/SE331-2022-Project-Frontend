@@ -6,6 +6,34 @@
         <ul>
           <li>
             <br />
+            <div class="title">Name</div>
+            <div class="value">{{ patient.name }}</div>
+            <br />
+          </li>
+          <li>
+            <div class="title">SurName</div>
+            <div class="value">{{ patient.sur_name }}</div>
+            <br />
+          </li>
+          <li>
+            <div class="title">Age</div>
+            <div class="value">{{ patient.age }}</div>
+            <br />
+          </li>
+          <li>
+            <div class="title">Home Town</div>
+            <div class="value">{{ patient.hometown }}</div>
+          </li>
+        </ul>
+        <br />
+      </div>
+    </div>
+    <div id="building">
+      <div class="left-nav"><img :src="imgURL" /></div>
+      <div class="list-item">
+        <ul>
+          <li>
+            <br />
             <div class="title">First Dose</div>
             <div class="value">
               {{ dose(patient.vaccineinfo.firstdose_name) }}
@@ -34,42 +62,12 @@
         </ul>
       </div>
     </div>
-    <button @click="vaccine">Return</button>
   </div>
 </template>
 <script>
 export default {
-  props: ['id', 'patient'],
-  inject: ['GStore'],
-  methods: {
-    vaccine() {
-      this.GStore.flashMessage =
-        'You are successfully return to ' +
-        this.patient.name +
-        ' ' +
-        this.patient.sur_name
-      setTimeout(() => {
-        this.GStore.flashMessage = ''
-      }, 3000)
-      this.$router.push({
-        name: 'PatientDetail',
-        params: { id: this.patient.id }
-      })
-    }
-  },
+  props: ['patient'],
   computed: {
-    dose() {
-      return function (dose) {
-        if (!dose) return 'Not Vaccinated'
-        else return dose
-      }
-    },
-    time() {
-      return function (time) {
-        if (!time) return 'None'
-        else return time
-      }
-    },
     imgURL() {
       return require('../assets/' + this.patient.id + '.jpg')
     }
@@ -77,6 +75,11 @@ export default {
 }
 </script>
 <style scoped>
+.name {
+  color: green;
+  font: bold;
+  font-size: 20px;
+}
 #building {
   display: flex;
   flex-direction: column;
@@ -98,9 +101,8 @@ export default {
   text-align: left;
   float: right;
   position: absolute;
-  width: 400px;
-  height: 180px;
-  margin: 10px 0 0 100px;
+  width: 300px;
+  margin: 10px 0 0 190px;
 }
 .left-nav {
   float: left;
@@ -109,7 +111,7 @@ export default {
   background-color: #fff;
   padding: 3px;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
-  margin: 20px 0 10px 30px;
+  margin: 20px 0 10px 100px;
   box-sizing: border-box;
   border-radius: 50%;
 }
@@ -143,17 +145,17 @@ li {
 }
 .title {
   position: absolute;
-  width: 50%;
+  width: 15%;
   text-align: center;
   text-align-last: center;
 }
 .title:before {
   position: absolute;
-  left: 90%;
+  left: 100%;
   content: '\FF1A';
 }
 .value {
-  padding-left: 50%;
+  padding-left: 40%;
   color: green;
 }
 .name {
