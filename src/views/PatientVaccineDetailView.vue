@@ -34,20 +34,14 @@
         </ul>
       </div>
     </div>
-    <button @click="vaccine">Return</button>
+    <button @click="vaccine">submit</button>
   </div>
 </template>
 <script>
 export default {
   props: ['id', 'patient'],
   inject: ['GStore'],
-  data() {
-    return {
-      vaccineinfo: {
-        seconddose_name: ''
-      }
-    }
-  },
+
   methods: {
     vaccine() {
       // this.GStore.flashMessage =
