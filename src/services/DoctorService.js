@@ -10,13 +10,13 @@ const apiClient = axios.create({
 })
 
 export default {
-  getTotalPeoples() {
+  getTotalDoctors() {
     return apiClient.get('/doctors')
   },
-  getPeople(id) {
+  getDoctor(id) {
     return apiClient.get('/doctor/' + id)
   },
-  getPeoples(perPage, page) {
+  getDoctors(perPage, page) {
     return apiClient.get('/doctors?_limit=' + perPage + '&_page=' + page)
   }
 }

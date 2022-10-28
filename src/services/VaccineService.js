@@ -12,5 +12,8 @@ const apiClient = axios.create({
 export default {
   getTotalVaccines() {
     return apiClient.get('/vaccines')
+  },
+  updateVaccine(vaccine, pid, did) {
+    return apiClient.post('/vaccine?pid=' + pid + '&did=' + did, vaccine)
   }
 }

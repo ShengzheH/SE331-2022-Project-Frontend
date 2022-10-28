@@ -34,7 +34,7 @@
         </ul>
       </div>
     </div>
-    <h2>You can update patient's vaccina info!</h2>
+    <h2>You can update patient's vaccina infomation!</h2>
     <div id="building1">
       <div class="list-item">
         <ul>
@@ -59,7 +59,7 @@
             <div class="title">First Dose Time</div>
             <div class="value">
               <div v-if="patient.vaccineinfo.firstdose_time">
-                {{ dose(patient.vaccineinfo.firstdose_time) }}
+                {{ time(patient.vaccineinfo.firstdose_time) }}
               </div>
               <div v-else>
                 <BaseInput
@@ -92,7 +92,7 @@
             <div class="title">Second Dose Time</div>
             <div class="value">
               <div v-if="patient.vaccineinfo.seconddose_time">
-                {{ dose(patient.vaccineinfo.firstdose_time) }}
+                {{ time(patient.vaccineinfo.seconddose_time) }}
               </div>
               <div v-else>
                 <BaseInput
@@ -101,28 +101,33 @@
                   label="second dose time"
                   class="field"
                 />
-                <!-- <input
-                  type="text"
-                  value=""
-                  class="input_control"
-                  placeholder="please input second dose time"
-                  name="seconddose_time"
-                  @input="print($event.target.value)"
-                /> -->
+              </div>
+            </div>
+          </li>
+          <br />
+          <li>
+            <div class="title">Vaccined Status</div>
+            <div class="value">
+              <div v-if="patient.vaccineinfo.vaccined_status == 'SecondDose'">
+                {{ patient.vaccineinfo.vaccined_status }}
+              </div>
+              <div v-else>
+                <BaseSelect
+                  :options="this.Status"
+                  v-model="vaccineinfo.vaccined_status"
+                />
               </div>
             </div>
           </li>
           <li>
-            <div class="title">Vaccined Status</div>
+            <div class="title">Doctor</div>
             <div class="value">
-              <div v-if="patient.vaccineinfo.seconddose_time">
-                {{ dose(patient.vaccineinfo.firstdose_time) }}
+              <div v-if="patient.doctor != null">
+                {{ patient.doctor.name }} {{ patient.doctor.sur_name }}
               </div>
-              <BaseSelect
-                :options="this.Status"
-                v-model="vaccineinfo.vaccined_status"
-                label="Select an Organizer"
-              />
+              <div v-else>
+                <BaseSelectDoc :options="this.doctors" v-model="doctorid" />
+              </div>
             </div>
           </li>
           <br />
@@ -133,6 +138,8 @@
   </div>
 </template>
 <script>
+import DoctorService from '@/services/DoctorService.js'
+import VaccineService from '@/services/VaccineService.js'
 export default {
   props: ['id', 'patient'],
   inject: ['GStore'],
@@ -145,12 +152,19 @@ export default {
         seconddose_time: '',
         vaccined_status: ''
       },
+      doctorid: '',
       Status: [
         { id: '1', name: 'Not Vaccinated' },
         { id: '2', name: 'FirstDose' },
         { id: '3', name: 'SecondDose' }
-      ]
+      ],
+      doctors: []
     }
+  },
+  created: function () {
+    DoctorService.getTotalDoctors().then((response) => {
+      this.doctors = response.data
+    })
   },
   methods: {
     vaccine1() {
@@ -172,7 +186,34 @@ export default {
       if (this.vaccineinfo.firstdose_time == '')
         this.vaccineinfo.firstdose_time =
           this.patient.vaccineinfo.firstdose_time
+      if (this.vaccineinfo.vaccined_status == 'Not Vaccinated') {
+        this.vaccineinfo.firstdose_name = null
+        this.vaccineinfo.firstdose_time = null
+        this.vaccineinfo.seconddose_name = null
+        this.vaccineinfo.seconddose_time = null
+      }
+      if (this.vaccineinfo.vaccined_status == 'FirstDose') {
+        this.vaccineinfo.seconddose_name = null
+        this.vaccineinfo.seconddose_time = null
+      }
+      console.log(this.status)
       console.log(this.vaccineinfo)
+      console.log(this.patient)
+      console.log(this.doctors)
+      if (this.patient.doctor != null) {
+        console.log('did=' + this.patient.doctor.id)
+        VaccineService.updateVaccine(
+          this.vaccineinfo,
+          this.patient.id,
+          this.patient.doctor.id
+        )
+      }
+      console.log('this did=' + this.doctorid)
+      VaccineService.updateVaccine(
+        this.vaccineinfo,
+        this.patient.id,
+        this.doctorid
+      )
     }
   },
   computed: {
@@ -211,7 +252,6 @@ export default {
   background-size: 100% 100%;
   /* background-color: blanchedalmond; */
 }
-/*����Ա������Ϣ�����ʽ*/
 #building1 {
   display: flex;
   flex-direction: column;

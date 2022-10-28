@@ -13,7 +13,15 @@
         <th width="150">{{ vaccine.firstdose_time }}</th>
         <th width="350">{{ vaccine.seconddose_name }}</th>
         <th width="150">{{ vaccine.seconddose_time }}</th>
-        <th width="300"><button>Update</button></th>
+        <th width="300">
+          <router-link
+            :to="{
+              name: 'PatientVaccineDetail',
+              params: { id: vaccine.patient.id }
+            }"
+            >Update</router-link
+          >
+        </th>
       </tr>
       <br />
     </table>
@@ -28,15 +36,12 @@ export default {
       required: true
     }
   },
-  computed: {
-    firstdose() {
-      return function (dose) {
-        if (dose) return 'Vaccinated'
-        else return 'Not vaccinated'
-      }
-    },
-    imgURl: function () {
-      return this.img
+  method: {
+    Update() {
+      this.$router.push({
+        name: 'PatientDetail',
+        params: { id: this.vaccine.patient.id }
+      })
     }
   }
 }

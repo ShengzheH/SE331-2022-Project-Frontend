@@ -20,46 +20,17 @@
       :key="vaccine.id"
       :vaccine="vaccine"
     ></VaccineItem>
-    <div class="home">
-      <h1>People who have been vaccinated with the defferent doses</h1>
-      <h2>
-        Number of people vaccinated with first dose vaccine :
-        {{ this.first_dose }}
-      </h2>
-      <div class="home-list">
-        <FirstDose
-          v-for="patient in patients"
-          :key="patient.id"
-          :patient="patient"
-        />
-      </div>
-      <h2>
-        Number of patient vaccinated with second dose vaccine :
-        {{ this.second_dose }}
-      </h2>
-      <div class="home-list">
-        <SecondDose
-          v-for="patient in patients"
-          :key="patient.id"
-          :patient="patient"
-        />
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import FirstDose from '@/components/FirstDose.vue'
-import SecondDose from '@/components/SecondDose.vue'
 import VaccineItem from '@/components/VaccineItem.vue'
 import VaccineService from '@/services/VaccineService.js'
 import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'HomeView',
   components: {
-    FirstDose,
-    SecondDose,
     VaccineItem
   },
   data() {
@@ -76,6 +47,14 @@ export default {
         this.vaccines = response.data
       })
     })
+  },
+  method: {
+    click() {
+      this.$router.push({
+        name: 'PatientDetail',
+        params: { id: this.vaccine.patient.id }
+      })
+    }
   }
 }
 </script>
