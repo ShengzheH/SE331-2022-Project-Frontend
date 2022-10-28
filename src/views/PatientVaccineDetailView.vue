@@ -34,7 +34,90 @@
         </ul>
       </div>
     </div>
-    <button @click="vaccine">submit</button>
+    <h2>Please add the info!</h2>
+    <div id="building1">
+      <div class="left-nav"><img :src="imgURL" /></div>
+      <div class="list-item">
+        <ul>
+          <li>
+            <br />
+            <div class="title">First Dose</div>
+            <div class="value">
+              <div v-if="patient.vaccineinfo.firstdose_name">
+                {{ dose(patient.vaccineinfo.firstdose_name) }}
+              </div>
+              <div v-else>
+                <input
+                  type="text"
+                  value=""
+                  class="input_control"
+                  placeholder="input"
+                  name="firstdose_name"
+                  @input="print($event.target.value)"
+                />
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="title">First Dose Date</div>
+            <div class="value">
+              <div v-if="patient.vaccineinfo.firstdose_time">
+                {{ dose(patient.vaccineinfo.firstdose_time) }}
+              </div>
+              <div v-else>
+                <input
+                  type="text"
+                  value=""
+                  class="input_control"
+                  placeholder="input"
+                  name="firstdose_time"
+                  @input="print($event.target.value)"
+                />
+              </div>
+            </div>
+            <br />
+          </li>
+          <li>
+            <div class="title">Second Dose</div>
+            <div class="value">
+              <div v-if="patient.vaccineinfo.seconddose_name">
+                {{ dose(patient.vaccineinfo.seconddose_name) }}
+              </div>
+              <div v-else>
+                <input
+                  type="text"
+                  value=""
+                  class="input_control"
+                  placeholder="input"
+                  name="seconddose_name"
+                  @input="print($event.target.value)"
+                />
+              </div>
+            </div>
+          </li>
+          <li>
+            <div class="title">Second Dose</div>
+            <div class="value">
+              <div v-if="patient.vaccineinfo.seconddose_time">
+                {{ dose(patient.vaccineinfo.firstdose_time) }}
+              </div>
+              <div v-else>
+                <input
+                  type="text"
+                  value=""
+                  class="input_control"
+                  placeholder="input"
+                  name="seconddose_time"
+                  @input="print($event.target.value)"
+                />
+              </div>
+            </div>
+          </li>
+          <br />
+        </ul>
+      </div>
+    </div>
+    <button @click="vaccine">Return</button>
   </div>
 </template>
 <script>
@@ -94,6 +177,44 @@ export default {
   background-position: absolute;
   background-size: 100% 100%;
   /* background-color: blanchedalmond; */
+}
+/*����Ա������Ϣ�����ʽ*/
+#building1 {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  width: 600px;
+  height: 300px;
+  cursor: pointer;
+  border: 3px solid #a6abb1;
+  border-radius: 20px;
+  margin: auto;
+  text-align: center;
+  background-color: #a6abb1;
+  background-position: absolute;
+  background-size: 100% 100%;
+  /* background-color: blanchedalmond; */
+}
+.input_control {
+  width: 200px;
+  margin: 10px auto;
+  box-sizing: border-box;
+  text-align: center;
+  height: 2.7em;
+  border-radius: 4px;
+  border: 1px solid #c8cccf;
+  color: #6a6f77;
+  -web-kit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  outline: 0;
+  padding: 0 1em;
+  text-decoration: none;
+  width: 100%;
+}
+
+input[type='text']:focus {
+  border: 1px solid #ff7496;
 }
 .list-item {
   /* border: 3px double #39495c; */
