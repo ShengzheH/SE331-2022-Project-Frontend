@@ -170,18 +170,6 @@ export default {
   },
   methods: {
     vaccine1() {
-      // this.GStore.flashMessage =
-      //   'You are successfully return to ' +
-      //   this.patient.name +
-      //   ' ' +
-      //   this.patient.sur_name
-      // setTimeout(() => {
-      //   this.GStore.flashMessage = ''
-      // }, 3000)
-      // this.$router.push({
-      //   name: 'PatientDetail',
-      //   params: { id: this.patient.id }
-      // })
       if (this.vaccineinfo.firstdose_name == '')
         this.vaccineinfo.firstdose_name =
           this.patient.vaccineinfo.firstdose_name

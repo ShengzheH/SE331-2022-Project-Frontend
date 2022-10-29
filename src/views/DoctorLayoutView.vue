@@ -2,7 +2,8 @@
   <div class="background" v-if="GStore.doctor">
     <div id="nav">
       <router-link :to="{ name: 'DoctorDetail' }">DoctorDetail</router-link> |
-      <router-link :to="{ name: 'home', params: { id: GStore.doctor.id } }"
+      <router-link
+        :to="{ name: 'DoctorPatient', params: { id: GStore.doctor.id } }"
         >DoctorPatients</router-link
       >
       <!-- <router-link :to="{ name: 'DoctorCommentView' }" -->

@@ -1,5 +1,6 @@
 <template>
   <div class="background"></div>
+  <h3>{{ patient.name }} {{ patient.sur_name }}'s Comments'</h3>
   <CommentList v-if="comments.length" :comments="comments"></CommentList>
   <div class="value">
     Doctor:
@@ -37,16 +38,11 @@ export default {
   },
   methods: {
     addComment(comment) {
+      console.log(comment)
       if (this.doctorid == '') {
-        this.GStore.flashMessage = 'Please select doctor'
-        setTimeout(() => {
-          this.GStore.flashMessage = ''
-        }, 3000)
+        alert('Doctor is incomplete. Please select your name.')
         return
       }
-      //   console.log(this.doctorid, comment, this.id)
-      //   this.comments.push(comment)
-      //   console.log(comment)
       CommentService.addComment(comment, this.doctorid, this.id).then(
         (response) => {
           console.log(response)

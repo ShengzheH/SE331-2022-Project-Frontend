@@ -1,7 +1,9 @@
 <template>
   <router-link :to="{ name: 'DoctorDetail', params: { id: doctor.id } }">
     <div id="building">
-      <div class="left-nav"><img :src="imgURl" /></div>
+      <div class="left-nav">
+        <img v-for="url in doctor.imageUrl" :key="url" :src="url" />
+      </div>
       <div class="list-item">
         <ul>
           <li>
@@ -46,7 +48,7 @@ export default {
   flex-direction: column;
   padding: 10px;
   width: 500px;
-  height: 220px;
+  height: 160px;
   cursor: pointer;
   border: 3px solid #a6abb1;
   border-radius: 20px;

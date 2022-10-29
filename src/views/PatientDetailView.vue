@@ -55,8 +55,8 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 10px;
-  width: 500px;
-  height: 200px;
+  width: 600px;
+  height: 300px;
   cursor: pointer;
   border: 3px solid #a6abb1;
   border-radius: 20px;

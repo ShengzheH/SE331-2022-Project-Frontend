@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import DoctorPatientView from '../views/DoctorPatientView.vue'
 import DoctorHomeView from '@/views/DoctorHomeView.vue'
 import AboutView from '../views/AboutView.vue'
 import PatientDetailView from '../views/PatientDetailView.vue'
@@ -12,7 +13,6 @@ import PatientService from '../services/PatientService.js'
 import DoctorService from '../services/DoctorService.js'
 import DoctorLayoutView from '@/views/DoctorLayoutView'
 // import DoctorCommentView from '@/views/DoctorCommentView'
-import DoctorPatientView from '@/views/DoctorPatientView'
 // import DoctorPatientDetailView from '@/views/DoctorPatientDetailView'
 import DoctorDetailView from '@/views/DoctorDetailView.vue'
 import ChangeImage from '@/views/ChangeImage.vue'
@@ -113,7 +113,7 @@ const routes = [
     },
     children: [
       {
-        path: '',
+        path: '/detail',
         name: 'DoctorDetail',
         component: DoctorDetailView,
         props: true
@@ -123,6 +123,11 @@ const routes = [
         name: 'DoctorChangeImage',
         component: DoctorChangeImage,
         props: true
+      },
+      {
+        path: '',
+        name: 'DoctorPatient',
+        component: DoctorPatientView
       }
       // {
       //   path: '/DoctorPatientDetai',

@@ -1,6 +1,5 @@
 <template>
   <div class="comment-list">
-    <h3>Comments</h3>
     <ul>
       <li v-for="(comment, index) in comments" :key="index">
         {{ index + 1 }}.doctor: {{ comment.doctor.name }}
