@@ -214,11 +214,6 @@ export default {
         this.doctorid
       ).then((response) => {
         console.log(response)
-        this.$router.push({
-          name: 'PatientVaccineDetail',
-          params: { patient: response.patient }
-        })
-        // this.$router.push({ name: 'Layout', params: { id: this.patient.id } })
         this.$router.go(0)
       })
       this.GStore.flashMessage =

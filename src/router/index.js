@@ -17,6 +17,7 @@ import DoctorPatientView from '@/views/DoctorPatientView'
 import DoctorDetailView from '@/views/DoctorDetailView.vue'
 import ChangeImage from '@/views/ChangeImage.vue'
 import DoctorChangeImage from '@/views/DoctorChangeImage.vue'
+import PatientCommentView from '@/views/PatientCommentView.vue'
 import NProgress from 'nprogress'
 import GStore from '@/store'
 const routes = [
@@ -79,6 +80,12 @@ const routes = [
         path: '',
         name: 'ChangeImage',
         component: ChangeImage,
+        props: true
+      },
+      {
+        path: '',
+        name: 'PatientComment',
+        component: PatientCommentView,
         props: true
       }
     ]
