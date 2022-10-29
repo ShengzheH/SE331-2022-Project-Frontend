@@ -1,32 +1,36 @@
-<!-- <template>
-  <div class="background">
+<template>
+  <router-link :to="{ name: 'DoctorDetail', params: { id: doctor.id } }">
     <div id="building">
-      <div class="left-nav"><img :src="imgURL" /></div>
+      <div class="left-nav"><img :src="imgURl" /></div>
       <div class="list-item">
         <ul>
           <li>
-            <br />
-            <div class="title">Name</div>
-            <div class="value">{{ patient.name }}</div>
-            <br />
-          </li>
-          <li>
-            <div class="title">SurName</div>
-            <div class="value">{{ patient.sur_name }}</div>
-            <br />
+            <div class="name">Name:{{ doctor.name }}</div>
+            <div class="name">Surname:{{ doctor.sur_name }}</div>
           </li>
         </ul>
         <br />
       </div>
     </div>
-  </div>
+  </router-link>
 </template>
 <script>
 export default {
-  props: ['patient'],
+  name: 'DoctorListItem',
+  data() {
+    return {
+      img: require('../assets/' + this.doctor.id + '.jpg')
+    }
+  },
+  props: {
+    doctor: {
+      type: Object,
+      required: true
+    }
+  },
   computed: {
-    imgURL() {
-      return require('../assets/' + this.patient.id + '.jpg')
+    imgURl: function () {
+      return this.img
     }
   }
 }
@@ -42,11 +46,11 @@ export default {
   flex-direction: column;
   padding: 10px;
   width: 500px;
-  height: 200px;
+  height: 220px;
   cursor: pointer;
   border: 3px solid #a6abb1;
   border-radius: 20px;
-  margin: auto;
+  margin-bottom: 18px;
   text-align: center;
   background-image: url('../assets/card.jpg');
   background-position: absolute;
@@ -82,13 +86,13 @@ export default {
   float: right;
 }
 /* #building {
-  background: url('../assets/bc.jpg');
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  overflow: auto;
-  background-size: 100% 100%;
-} */
+    background: url('../assets/bc.jpg');
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: auto;
+    background-size: 100% 100%;
+  } */
 body {
   overflow: auto;
 }
@@ -102,9 +106,9 @@ li {
 }
 .title {
   position: absolute;
-  width: 15%;
-  text-align: center;
-  text-align-last: center;
+  width: 35%;
+  text-align: justify;
+  text-align-last: justify;
 }
 .title:before {
   position: absolute;
@@ -113,7 +117,6 @@ li {
 }
 .value {
   padding-left: 40%;
-  color: green;
 }
 .name {
   color: green;
@@ -125,4 +128,4 @@ li {
 .status {
   padding-bottom: 8px;
 }
-</style> -->
+</style>

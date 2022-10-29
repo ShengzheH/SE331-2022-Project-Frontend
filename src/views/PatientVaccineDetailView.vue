@@ -140,6 +140,7 @@
 <script>
 import DoctorService from '@/services/DoctorService.js'
 import VaccineService from '@/services/VaccineService.js'
+// import PatientService from '@/services/PatientService'
 export default {
   props: ['id', 'patient'],
   inject: ['GStore'],
@@ -217,6 +218,8 @@ export default {
           name: 'PatientVaccineDetail',
           params: { patient: response.patient }
         })
+        // this.$router.push({ name: 'Layout', params: { id: this.patient.id } })
+        this.$router.go(0)
       })
       this.GStore.flashMessage =
         'You are successfully update to ' +
