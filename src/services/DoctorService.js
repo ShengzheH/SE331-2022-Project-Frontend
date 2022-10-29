@@ -21,5 +21,18 @@ export default {
   },
   getDoctors(perPage, page) {
     return apiClient.get('/doctors?_limit=' + perPage + '&_page=' + page)
+  },
+  updateFile(file) {
+    let formDate = new FormData()
+    formDate.append('file', file)
+    return apiClient.post('/uploadFile', formDate, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+  },
+  changeimage(doctor1) {
+    let doctor = doctor1
+    return apiClient.post('/doctorimage', doctor)
   }
 }

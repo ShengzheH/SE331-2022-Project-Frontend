@@ -3,7 +3,7 @@
     <div class="home">
       <h1 v-if="doctor == null">The Patients who had Vaccinated</h1>
       <h1 v-if="doctor != null">
-        Doctor {{ doctor.name }} {{ doctor.sur_name }}'s patients'
+        Doctor {{ doctor.name }} {{ doctor.sur_name }}'s patients
       </h1>
       <div class="home-list">
         <ListItem
