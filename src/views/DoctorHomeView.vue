@@ -1,15 +1,12 @@
 <template>
   <div class="background">
     <div class="home">
-      <h1 v-if="doctor == null">The Patients who had Vaccinated</h1>
-      <h1 v-if="doctor != null">
-        Doctor {{ doctor.name }} {{ doctor.sur_name }}'s patients'
-      </h1>
+      <h1>The Doctor List</h1>
       <div class="home-list">
-        <ListItem
-          v-for="patient in patients"
-          :key="patient.id"
-          :patient="patient"
+        <DoctorListItem
+          v-for="doctor in doctors"
+          :key="doctor.id"
+          :doctor="doctor"
         />
       </div>
       <router-link
@@ -41,11 +38,10 @@
 
 <script>
 // @ is an alias to /src
-import ListItem from '@/components/ListItem.vue'
-import PatientService from '@/services/PatientService.js'
-import DoctorService from '@/services/DoctorService'
+import DoctorListItem from '@/components/DoctorListItem.vue'
+import DoctorService from '@/services/DoctorService.js'
 export default {
-  name: 'HomeView',
+  name: 'DoctorHomeView',
   props: {
     page: {
       type: Number,
@@ -53,48 +49,32 @@ export default {
     }
   },
   components: {
-    ListItem
+    DoctorListItem
   },
   data() {
     return {
-      patients: null,
-      totalitems: 0,
-      doctor: null
+      doctors: null,
+      totalitems: 0
     }
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(routeTo, routeFrom, next) {
-    console.log(routeTo, routeFrom)
-    if (routeFrom.name == 'DoctorDetail') {
-      DoctorService.getDoctor(routeFrom.params.id)
-        .then((response) => {
-          next((comp) => {
-            comp.doctor = response.data
-            comp.patients = response.data.patients
-            comp.totalitems = response.headers['x-total-count']
-          })
+    DoctorService.getTotalDoctors(5, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        next((comp) => {
+          comp.doctors = response.data
+          comp.totalitems = response.headers['x-total-count']
         })
-        .catch(() => {
-          next({ name: 'NetworkError' })
-        })
-    } else {
-      PatientService.getPeoples(5, parseInt(routeTo.query.page) || 1)
-        .then((response) => {
-          next((comp) => {
-            comp.patients = response.data
-            comp.totalitems = response.headers['x-total-count']
-          })
-        })
-        .catch(() => {
-          next({ name: 'NetworkError' })
-        })
-    }
+      })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    PatientService.getPeoples(5, parseInt(routeTo.query.page) || 1)
+    DoctorService.getTotalDoctors(5, parseInt(routeTo.query.page) || 1)
       .then((response) => {
-        this.patients = response.data
+        this.doctors = response.data
         this.totalitems = response.headers['x-total-count']
         next()
       })

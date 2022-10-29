@@ -16,6 +16,9 @@ export default {
   getDoctor(id) {
     return apiClient.get('/doctor/' + id)
   },
+  getDoctorPatient(id) {
+    return apiClient.get('/doctorpatient/' + id)
+  },
   getDoctors(perPage, page) {
     return apiClient.get('/doctors?_limit=' + perPage + '&_page=' + page)
   }
