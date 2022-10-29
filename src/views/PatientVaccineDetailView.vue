@@ -214,7 +214,7 @@ export default {
       ).then((response) => {
         console.log(response)
         this.$router.push({
-          name: 'PatientDetail',
+          name: 'PatientVaccineDetail',
           params: { patient: response.patient }
         })
       })
