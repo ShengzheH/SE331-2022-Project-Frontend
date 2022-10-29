@@ -126,7 +126,7 @@
                 {{ patient.doctor.name }} {{ patient.doctor.sur_name }}
               </div>
               <div v-else>
-                <BaseSelectDoc :options="this.doctors" v-model="doctorid" />
+                <BaseSelectDoc :options="this.doctors" v-model="tempdid" />
               </div>
             </div>
           </li>
@@ -134,7 +134,7 @@
         </ul>
       </div>
     </div>
-    <button @click="vaccine1">Return</button>
+    <button @click="vaccine1">Update</button>
   </div>
 </template>
 <script>
@@ -152,6 +152,7 @@ export default {
         seconddose_time: '',
         vaccined_status: ''
       },
+      tempdid: '',
       doctorid: '',
       Status: [
         { id: '1', name: 'Not Vaccinated' },
@@ -201,19 +202,31 @@ export default {
       console.log(this.patient)
       console.log(this.doctors)
       if (this.patient.doctor != null) {
-        console.log('did=' + this.patient.doctor.id)
-        VaccineService.updateVaccine(
-          this.vaccineinfo,
-          this.patient.id,
-          this.patient.doctor.id
-        )
+        this.doctorid = this.patient.doctor.id
+      } else {
+        this.doctorid = this.tempdid
       }
       console.log('this did=' + this.doctorid)
       VaccineService.updateVaccine(
         this.vaccineinfo,
         this.patient.id,
         this.doctorid
-      )
+      ).then((response) => {
+        console.log(response)
+        this.$router.push({
+          name: 'PatientDetail',
+          params: { patient: response.patient }
+        })
+      })
+      this.GStore.flashMessage =
+        'You are successfully update to ' +
+        this.patient.name +
+        ' ' +
+        this.patient.sur_name +
+        ' vaccine information'
+      setTimeout(() => {
+        this.GStore.flashMessage = ''
+      }, 3000)
     }
   },
   computed: {
