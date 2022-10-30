@@ -29,7 +29,7 @@ import VaccineItem from '@/components/VaccineItem.vue'
 import VaccineService from '@/services/VaccineService.js'
 import { watchEffect } from '@vue/runtime-core'
 export default {
-  name: 'HomeView',
+  name: 'VaccineIDetail',
   components: {
     VaccineItem
   },

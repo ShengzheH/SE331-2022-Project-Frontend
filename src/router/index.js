@@ -20,6 +20,7 @@ import DoctorChangeImage from '@/views/DoctorChangeImage.vue'
 import PatientCommentView from '@/views/PatientCommentView.vue'
 import NProgress from 'nprogress'
 import GStore from '@/store'
+import Login from '@/views/LoginFormView.vue'
 const routes = [
   {
     path: '/',
@@ -113,7 +114,7 @@ const routes = [
     },
     children: [
       {
-        path: '/detail',
+        path: '/',
         name: 'DoctorDetail',
         component: DoctorDetailView,
         props: true
@@ -154,6 +155,11 @@ const routes = [
     name: 'DoctorPatientView',
     component: DoctorPatientView,
     props: true
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: Login
   },
   {
     path: '/:catchAll(.*)',
