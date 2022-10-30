@@ -5,5 +5,11 @@ export default {
   },
   updateVaccine(vaccine, pid, did) {
     return apiClient.post('/vaccine?pid=' + pid + '&did=' + did, vaccine)
+  },
+  getVaccine(id) {
+    return apiClient.get('/vaccine/' + id)
+  },
+  getVaccines(perPage, page) {
+    return apiClient.get('/vaccines?_limit=' + perPage + '&_page=' + page)
   }
 }
