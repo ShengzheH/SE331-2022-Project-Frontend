@@ -1,7 +1,9 @@
 <template>
   <div class="background">
     <div id="building">
-      <div class="left-nav"><img :src="imgURL" /></div>
+      <div class="left-nav" @click="changeImage">
+        <img v-for="url in patient.imageUrl" :key="url" :src="url" />
+      </div>
       <div class="list-item">
         <ul>
           <li>
@@ -169,6 +171,12 @@ export default {
     })
   },
   methods: {
+    changeImage() {
+      this.$router.push({
+        name: 'ChangeImage',
+        params: { id: this.patient.id }
+      })
+    },
     vaccine1() {
       if (this.vaccineinfo.firstdose_name == '')
         this.vaccineinfo.firstdose_name =
