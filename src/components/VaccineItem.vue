@@ -8,7 +8,7 @@
         <th width="300">
           {{ vaccine.patient.name }} {{ vaccine.patient.sur_name }}
         </th>
-        <th width="200">{{ vaccine.vaccined_status }}</th>
+        <th width="200" class="status">{{ vaccine.vaccined_status }}</th>
         <th width="350">{{ vaccine.firstdose_name }}</th>
         <th width="150">{{ vaccine.firstdose_time }}</th>
         <th width="350">{{ vaccine.seconddose_name }}</th>
@@ -75,6 +75,9 @@ export default {
   background-position: absolute;
   background-size: 100% 100%;
   /* background-color: blanchedalmond; */
+}
+.status {
+  color: darkseagreen;
 }
 .list-item {
   /* border: 3px double #39495c; */

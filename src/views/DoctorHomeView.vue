@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="background" v-if="isAdmin">
     <div class="home">
       <h1>The Doctor List</h1>
       <div class="home-list">
@@ -34,14 +34,23 @@
       </router-link>
     </div>
   </div>
+  <div v-else-if="isDoctor">
+    <h4>Go to your own page</h4>
+    <router-link
+      :to="{ name: 'DoctorDetail', params: { id: GStore.currentUser.id } }"
+      >My page</router-link
+    >
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import DoctorListItem from '@/components/DoctorListItem.vue'
 import DoctorService from '@/services/DoctorService.js'
+import AuthService from '@/services/AuthService.js'
 export default {
   name: 'DoctorHomeView',
+  inject: ['GStore'],
   props: {
     page: {
       type: Number,
@@ -86,6 +95,12 @@ export default {
     hasNextPage() {
       let totalPages = Math.ceil(this.totalitems / 2)
       return this.page < totalPages
+    },
+    isDoctor() {
+      return AuthService.hasRoles('ROLE_DOCTOR')
+    },
+    isAdmin() {
+      return AuthService.hasRoles('ROLE_ADMIN')
     }
   }
 }

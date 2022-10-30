@@ -36,112 +36,115 @@
         </ul>
       </div>
     </div>
-    <h2>You can update patient's vaccina infomation!</h2>
-    <div id="building1">
-      <div class="list-item">
-        <ul>
-          <li>
+    <div v-if="isAdmin">
+      <h2>You can update patient's vaccina infomation!</h2>
+      <div id="building1">
+        <div class="list-item">
+          <ul>
+            <li>
+              <br />
+              <div class="title">First Dose Name</div>
+              <div class="value">
+                <div v-if="patient.vaccineinfo.firstdose_name">
+                  {{ dose(patient.vaccineinfo.firstdose_name) }}
+                </div>
+                <div v-else>
+                  <BaseInput
+                    v-model="vaccineinfo.firstdose_name"
+                    type="text"
+                    label="first dose name"
+                    class="field"
+                  />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="title">First Dose Time</div>
+              <div class="value">
+                <div v-if="patient.vaccineinfo.firstdose_time">
+                  {{ time(patient.vaccineinfo.firstdose_time) }}
+                </div>
+                <div v-else>
+                  <BaseInput
+                    v-model="vaccineinfo.firstdose_time"
+                    type="text"
+                    label="first dose time"
+                    class="field"
+                  />
+                </div>
+              </div>
+              <br />
+            </li>
+            <li>
+              <div class="title">Second Dose Name</div>
+              <div class="value">
+                <div v-if="patient.vaccineinfo.seconddose_name">
+                  {{ dose(patient.vaccineinfo.seconddose_name) }}
+                </div>
+                <div v-else>
+                  <BaseInput
+                    v-model="vaccineinfo.seconddose_name"
+                    type="text"
+                    label="second dose name"
+                    class="field"
+                  />
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="title">Second Dose Time</div>
+              <div class="value">
+                <div v-if="patient.vaccineinfo.seconddose_time">
+                  {{ time(patient.vaccineinfo.seconddose_time) }}
+                </div>
+                <div v-else>
+                  <BaseInput
+                    v-model="vaccineinfo.seconddose_time"
+                    type="text"
+                    label="second dose time"
+                    class="field"
+                  />
+                </div>
+              </div>
+            </li>
             <br />
-            <div class="title">First Dose Name</div>
-            <div class="value">
-              <div v-if="patient.vaccineinfo.firstdose_name">
-                {{ dose(patient.vaccineinfo.firstdose_name) }}
+            <li>
+              <div class="title">Vaccined Status</div>
+              <div class="value">
+                <div v-if="patient.vaccineinfo.vaccined_status == 'SecondDose'">
+                  {{ patient.vaccineinfo.vaccined_status }}
+                </div>
+                <div v-else>
+                  <BaseSelect
+                    :options="this.Status"
+                    v-model="vaccineinfo.vaccined_status"
+                  />
+                </div>
               </div>
-              <div v-else>
-                <BaseInput
-                  v-model="vaccineinfo.firstdose_name"
-                  type="text"
-                  label="first dose name"
-                  class="field"
-                />
+            </li>
+            <li>
+              <div class="title">Doctor</div>
+              <div class="value">
+                <div v-if="patient.doctor != null">
+                  {{ patient.doctor.name }} {{ patient.doctor.sur_name }}
+                </div>
+                <div v-else>
+                  <BaseSelectDoc :options="this.doctors" v-model="tempdid" />
+                </div>
               </div>
-            </div>
-          </li>
-          <li>
-            <div class="title">First Dose Time</div>
-            <div class="value">
-              <div v-if="patient.vaccineinfo.firstdose_time">
-                {{ time(patient.vaccineinfo.firstdose_time) }}
-              </div>
-              <div v-else>
-                <BaseInput
-                  v-model="vaccineinfo.firstdose_time"
-                  type="text"
-                  label="first dose time"
-                  class="field"
-                />
-              </div>
-            </div>
+            </li>
             <br />
-          </li>
-          <li>
-            <div class="title">Second Dose Name</div>
-            <div class="value">
-              <div v-if="patient.vaccineinfo.seconddose_name">
-                {{ dose(patient.vaccineinfo.seconddose_name) }}
-              </div>
-              <div v-else>
-                <BaseInput
-                  v-model="vaccineinfo.seconddose_name"
-                  type="text"
-                  label="second dose name"
-                  class="field"
-                />
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="title">Second Dose Time</div>
-            <div class="value">
-              <div v-if="patient.vaccineinfo.seconddose_time">
-                {{ time(patient.vaccineinfo.seconddose_time) }}
-              </div>
-              <div v-else>
-                <BaseInput
-                  v-model="vaccineinfo.seconddose_time"
-                  type="text"
-                  label="second dose time"
-                  class="field"
-                />
-              </div>
-            </div>
-          </li>
-          <br />
-          <li>
-            <div class="title">Vaccined Status</div>
-            <div class="value">
-              <div v-if="patient.vaccineinfo.vaccined_status == 'SecondDose'">
-                {{ patient.vaccineinfo.vaccined_status }}
-              </div>
-              <div v-else>
-                <BaseSelect
-                  :options="this.Status"
-                  v-model="vaccineinfo.vaccined_status"
-                />
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="title">Doctor</div>
-            <div class="value">
-              <div v-if="patient.doctor != null">
-                {{ patient.doctor.name }} {{ patient.doctor.sur_name }}
-              </div>
-              <div v-else>
-                <BaseSelectDoc :options="this.doctors" v-model="tempdid" />
-              </div>
-            </div>
-          </li>
-          <br />
-        </ul>
+          </ul>
+        </div>
       </div>
+      <button @click="vaccine1">Update</button>
     </div>
-    <button @click="vaccine1">Update</button>
   </div>
 </template>
 <script>
 import DoctorService from '@/services/DoctorService.js'
 import VaccineService from '@/services/VaccineService.js'
+import AuthService from '@/services/AuthService.js'
 // import PatientService from '@/services/PatientService'
 export default {
   props: ['id', 'patient'],
@@ -238,6 +241,9 @@ export default {
     },
     imgURL() {
       return require('../assets/' + this.patient.id + '.jpg')
+    },
+    isAdmin() {
+      return AuthService.hasRoles('ROLE_ADMIN')
     }
   }
 }

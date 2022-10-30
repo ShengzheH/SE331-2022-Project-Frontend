@@ -16,10 +16,28 @@
       </li>
     </ul>
     <ul v-if="GStore.currentUser" class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <router-link to="/profile" class="nav-link">
+      <li class="nav-item" v-if="isAdmin">
+        <router-link :to="{ name: 'home' }" class="nav-link">
           <font-awesome-icon icon="user" />
-          {{ GStore.currentUser.name }}
+          {{ GStore.currentUser.name }} {{ GStore.currentUser.sur_name }}
+        </router-link>
+      </li>
+      <li class="nav-item" v-else-if="isDoctor">
+        <router-link
+          :to="{ name: 'DoctorDetail', params: { id: GStore.currentUser.id } }"
+          class="nav-link"
+        >
+          <font-awesome-icon icon="user" />
+          {{ GStore.currentUser.name }} {{ GStore.currentUser.sur_name }}
+        </router-link>
+      </li>
+      <li class="nav-item" v-else-if="isPatient">
+        <router-link
+          :to="{ name: 'PatientDetail', params: { id: GStore.currentUser.id } }"
+          class="nav-link"
+        >
+          <font-awesome-icon icon="user" />
+          {{ GStore.currentUser.name }} {{ GStore.currentUser.sur_name }}
         </router-link>
       </li>
       <li class="nav-item">
@@ -31,16 +49,27 @@
   </nav>
 
   <nav>
-    <router-link :to="{ name: 'home' }">Patient</router-link> |
-    <router-link :to="{ name: 'doctorhome' }">Doctor</router-link> |
+    <span v-if="isPatient">
+      <router-link :to="{ name: 'home' }">Patient</router-link> |
+    </span>
+    <span v-if="isDoctor">
+      <router-link :to="{ name: 'doctorhome' }">Doctor</router-link> |
+    </span>
     <span v-if="isAdmin">
-      |
       <router-link
         :to="{
           name: 'VaccineDetail'
         }"
       >
         Vaccines
+      </router-link>
+      |
+      <router-link
+        :to="{
+          name: 'AdminUser'
+        }"
+      >
+        SetRole
       </router-link>
       |
     </span>
@@ -58,6 +87,12 @@ export default {
     },
     isAdmin() {
       return AuthService.hasRoles('ROLE_ADMIN')
+    },
+    isDoctor() {
+      return AuthService.hasRoles('ROLE_DOCTOR')
+    },
+    isPatient() {
+      return AuthService.hasRoles('ROLE_PATIENT')
     }
   },
   methods: {

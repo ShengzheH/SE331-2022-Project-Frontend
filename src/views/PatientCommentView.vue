@@ -2,17 +2,20 @@
   <div class="background"></div>
   <h3>{{ patient.name }} {{ patient.sur_name }}'s Comments'</h3>
   <CommentList v-if="comments.length" :comments="comments"></CommentList>
-  <div class="value">
-    Doctor:
-    <BaseSelectDoc :options="this.doctors" v-model="doctorid" />
+  <div v-if="isDoctor">
+    <div class="value">
+      Doctor:
+      <BaseSelectDoc :options="this.doctors" v-model="doctorid" />
+    </div>
+    <CommentForm @comment-submitted="addComment"></CommentForm>
   </div>
-  <CommentForm @comment-submitted="addComment"></CommentForm>
 </template>
 <script>
 import DoctorService from '@/services/DoctorService.js'
 import CommentService from '@/services/CommentService.js'
 import CommentForm from '@/components/CommentForm.vue'
 import CommentList from '@/components/CommentList.vue'
+import AuthService from '@/services/AuthService.js'
 export default {
   props: ['id', 'patient'],
   inject: ['GStore'],
@@ -55,6 +58,11 @@ export default {
         this.GStore.flashMessage = ''
       }, 3000)
       //      this.$router.go(0)
+    }
+  },
+  computed: {
+    isDoctor() {
+      return AuthService.hasRoles('ROLE_DOCTOR')
     }
   }
 }

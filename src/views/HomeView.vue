@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="background" v-if="isAdmin">
     <div class="home">
       <h1 v-if="doctor == null">The Patients who had Vaccinated</h1>
       <h1 v-if="doctor != null">
@@ -37,14 +37,30 @@
       </router-link>
     </div>
   </div>
+  <div v-else-if="isPatient">
+    <h4>Go to your own page</h4>
+    <router-link
+      :to="{ name: 'PatientDetail', params: { id: GStore.currentUser.id } }"
+      >My page</router-link
+    >
+  </div>
+  <div v-else-if="isDoctor">
+    <h4>Go to your own page</h4>
+    <router-link
+      :to="{ name: 'DoctorDetail', params: { id: GStore.currentUser.id } }"
+      >My page</router-link
+    >
+  </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import ListItem from '@/components/ListItem.vue'
 import PatientService from '@/services/PatientService.js'
+import AuthService from '@/services/AuthService.js'
 export default {
   name: 'HomeView',
+  inject: ['GStore'],
   props: {
     page: {
       type: Number,
@@ -64,7 +80,10 @@ export default {
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(routeTo, routeFrom, next) {
     console.log(routeTo, routeFrom)
-    PatientService.getPeoples(5, parseInt(routeTo.query.page) || 1)
+    PatientService.getPeopleByAlreadyVaccinated(
+      5,
+      parseInt(routeTo.query.page) || 1
+    )
       .then((response) => {
         next((comp) => {
           comp.patients = response.data
@@ -77,7 +96,10 @@ export default {
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    PatientService.getPeoples(5, parseInt(routeTo.query.page) || 1)
+    PatientService.getPeopleByAlreadyVaccinated(
+      5,
+      parseInt(routeTo.query.page) || 1
+    )
       .then((response) => {
         this.patients = response.data
         this.totalitems = response.headers['x-total-count']
@@ -91,6 +113,15 @@ export default {
     hasNextPage() {
       let totalPages = Math.ceil(this.totalitems / 5)
       return this.page < totalPages
+    },
+    isAdmin() {
+      return AuthService.hasRoles('ROLE_ADMIN')
+    },
+    isPatient() {
+      return AuthService.hasRoles('ROLE_PATIENT')
+    },
+    isDoctor() {
+      return AuthService.hasRoles('ROLE_DOCTOR')
     }
   }
 }

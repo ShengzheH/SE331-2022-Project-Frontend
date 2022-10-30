@@ -7,6 +7,11 @@ export default {
   getPeople(id) {
     return apiClient.get('/patient/' + id)
   },
+  getPeopleByAlreadyVaccinated(perPage, page) {
+    return apiClient.get(
+      '/patientswithvaccine?_limit=' + perPage + '&_page=' + page
+    )
+  },
   getPeoples(perPage, page) {
     return apiClient.get('/patients?_limit=' + perPage + '&_page=' + page)
   },

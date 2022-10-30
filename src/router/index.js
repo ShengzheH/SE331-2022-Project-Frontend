@@ -18,6 +18,8 @@ import DoctorDetailView from '@/views/DoctorDetailView.vue'
 import ChangeImage from '@/views/ChangeImage.vue'
 import DoctorChangeImage from '@/views/DoctorChangeImage.vue'
 import PatientCommentView from '@/views/PatientCommentView.vue'
+import Register from '@/views/RegisterView.vue'
+import AdminUser from '@/views/AdminUserView.vue'
 import NProgress from 'nprogress'
 import GStore from '@/store'
 import Login from '@/views/LoginFormView.vue'
@@ -42,6 +44,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: AboutView
+  },
+  {
+    path: '/user',
+    name: 'AdminUser',
+    component: AdminUser
   },
   {
     path: '/patient/:id',
@@ -166,6 +173,11 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register
   },
   {
     path: '/:catchAll(.*)',

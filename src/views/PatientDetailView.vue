@@ -9,22 +9,35 @@
           <li>
             <br />
             <div class="title">Name</div>
-            <div class="value">{{ patient.name }}</div>
+            <div class="value">{{ this.GStore.patient.name }}</div>
             <br />
           </li>
           <li>
             <div class="title">SurName</div>
-            <div class="value">{{ patient.sur_name }}</div>
+            <div class="value">{{ this.GStore.patient.sur_name }}</div>
             <br />
           </li>
           <li>
             <div class="title">Age</div>
-            <div class="value">{{ patient.age }}</div>
+            <div class="value" v-if="this.GStore.patient.age != null">
+              {{ this.GStore.patient.age }}
+            </div>
+            <div class="value" v-else>None</div>
             <br />
           </li>
           <li>
             <div class="title">Home Town</div>
-            <div class="value">{{ patient.hometown }}</div>
+            <div class="value" v-if="this.GStore.patient.hometown != null">
+              {{ this.GStore.patient.hometown }}
+            </div>
+            <div class="value" v-else>None</div>
+          </li>
+          <li>
+            <div class="title">Doctor</div>
+            <div class="value" v-if="this.GStore.patient.doctor != null">
+              {{ this.GStore.patient.doctor.name }}
+              {{ this.GStore.patient.doctor.sur_name }}
+            </div>
           </li>
         </ul>
         <br />
@@ -35,6 +48,7 @@
 <script>
 export default {
   props: ['patient'],
+  inject: ['GStore'],
   methods: {
     changeImage() {
       this.$router.push({
@@ -42,6 +56,9 @@ export default {
         params: { id: this.patient.id }
       })
     }
+  },
+  created: function () {
+    console.log(this.GStore)
   }
 }
 </script>
