@@ -21,11 +21,6 @@
 <script>
 export default {
   name: 'ListItem',
-  data() {
-    return {
-      img: require('../assets/' + this.patient.id + '.jpg')
-    }
-  },
   props: {
     patient: {
       type: Object,
