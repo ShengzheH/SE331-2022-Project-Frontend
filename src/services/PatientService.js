@@ -10,6 +10,16 @@ export default {
   getPeoples(perPage, page) {
     return apiClient.get('/patients?_limit=' + perPage + '&_page=' + page)
   },
+  getPeopleByDoctor(did, perPage, page) {
+    return apiClient.get(
+      '/patientsbydoctor?_limit=' +
+        perPage +
+        '&_page=' +
+        page +
+        '&doctorid=' +
+        did
+    )
+  },
   updateFile(file) {
     let formDate = new FormData()
     formDate.append('file', file)

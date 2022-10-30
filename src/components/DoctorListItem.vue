@@ -2,7 +2,7 @@
   <router-link :to="{ name: 'DoctorDetail', params: { id: doctor.id } }">
     <div id="building">
       <div class="left-nav" @click="changeImage">
-        <img v-for="url in patient.imageUrl" :key="url" :src="url" />
+        <img v-for="url in doctor.imageUrl" :key="url" :src="url" />
       </div>
       <div class="list-item">
         <ul>

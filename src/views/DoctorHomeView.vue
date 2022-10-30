@@ -12,7 +12,7 @@
       <router-link
         id="page-prev"
         :to="{
-          name: 'home',
+          name: 'doctorhome',
           query: { page: page - 1 }
         }"
         rel="prev"
@@ -24,7 +24,7 @@
       <router-link
         id="page-next"
         :to="{
-          name: 'home',
+          name: 'doctorhome',
           query: { page: page + 1 }
         }"
         rel="next"
@@ -59,7 +59,7 @@ export default {
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteEnter(routeTo, routeFrom, next) {
-    DoctorService.getTotalDoctors(5, parseInt(routeTo.query.page) || 1)
+    DoctorService.getDoctors(2, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         next((comp) => {
           comp.doctors = response.data
@@ -72,7 +72,7 @@ export default {
   },
   // eslint-disable-next-line no-unused-vars
   beforeRouteUpdate(routeTo, routeFrom, next) {
-    DoctorService.getTotalDoctors(5, parseInt(routeTo.query.page) || 1)
+    DoctorService.getDoctors(2, parseInt(routeTo.query.page) || 1)
       .then((response) => {
         this.doctors = response.data
         this.totalitems = response.headers['x-total-count']
@@ -84,7 +84,7 @@ export default {
   },
   computed: {
     hasNextPage() {
-      let totalPages = Math.ceil(this.totalitems / 5)
+      let totalPages = Math.ceil(this.totalitems / 2)
       return this.page < totalPages
     }
   }

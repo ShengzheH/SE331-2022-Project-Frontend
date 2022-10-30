@@ -128,7 +128,11 @@ const routes = [
       {
         path: '',
         name: 'DoctorPatient',
-        component: DoctorPatientView
+        component: DoctorPatientView,
+        props: (route) => ({
+          page: parseInt(route.query.page) || 1,
+          id: null
+        })
       }
       // {
       //   path: '/DoctorPatientDetai',
