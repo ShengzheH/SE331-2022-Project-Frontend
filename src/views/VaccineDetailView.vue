@@ -30,14 +30,19 @@ import VaccineService from '@/services/VaccineService.js'
 import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'VaccineIDetail',
+  prop: {
+    page: {
+      type: Number,
+      required: true
+    }
+  },
   components: {
     VaccineItem
   },
   data() {
     return {
-      vaccines: [],
-      first_dose: 0,
-      second_dose: 0,
+      vaccines: null,
+      totalitems: 0,
       length: 0
     }
   },
