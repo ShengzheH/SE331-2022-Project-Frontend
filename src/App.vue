@@ -34,7 +34,15 @@
     <router-link :to="{ name: 'home' }">Patient</router-link> |
     <router-link :to="{ name: 'doctorhome' }">Doctor</router-link> |
     <span v-if="isAdmin">
-      | <router-link :to="{ name: 'VaccineDetail' }">Vaccine</router-link> |
+      |
+      <router-link
+        :to="{
+          name: 'VaccineDetail'
+        }"
+      >
+        Vaccines
+      </router-link>
+      |
     </span>
     <router-link :to="{ name: 'about' }">About us</router-link>
   </nav>

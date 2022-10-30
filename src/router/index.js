@@ -149,10 +149,12 @@ const routes = [
     ]
   },
   {
-    path: '/VaccineDetail',
+    path: '/Vaccine',
     name: 'VaccineDetail',
     component: VaccineDetailView,
-    props: true
+    props: (route) => ({
+      page: parseInt(route.query.page) || 1
+    })
   },
   {
     path: '/DoctorPatient',

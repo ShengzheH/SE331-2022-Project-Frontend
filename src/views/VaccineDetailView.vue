@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="home">
     <div width="1600" class="mytable">
       <table>
         <tr align="center">
@@ -15,11 +15,36 @@
       </table>
     </div>
     <br />
-    <VaccineItem
-      v-for="vaccine in vaccines"
-      :key="vaccine.id"
-      :vaccine="vaccine"
-    ></VaccineItem>
+    <div class="home-list">
+      <VaccineItem
+        v-for="vaccine in vaccines"
+        :key="vaccine.id"
+        :vaccine="vaccine"
+      />
+    </div>
+    <router-link
+      id="page-prev"
+      :to="{
+        name: 'VaccineDetail',
+        query: { page: page - 1 }
+      }"
+      rel="prev"
+      v-if="page != 1"
+    >
+      Prev Page
+    </router-link>
+    <span>{{ this.page }}</span>
+    <router-link
+      id="page-next"
+      :to="{
+        name: 'VaccineDetail',
+        query: { page: page + 1 }
+      }"
+      rel="next"
+      v-if="hasNextPage"
+    >
+      Next Page
+    </router-link>
   </div>
 </template>
 
@@ -27,10 +52,9 @@
 // @ is an alias to /src
 import VaccineItem from '@/components/VaccineItem.vue'
 import VaccineService from '@/services/VaccineService.js'
-import { watchEffect } from '@vue/runtime-core'
 export default {
   name: 'VaccineIDetail',
-  prop: {
+  props: {
     page: {
       type: Number,
       required: true
@@ -46,19 +70,35 @@ export default {
       length: 0
     }
   },
-  created() {
-    watchEffect(() => {
-      VaccineService.getTotalVaccines().then((response) => {
-        this.vaccines = response.data
+  // eslint-disable-next-line no-unused-vars
+  beforeRouteEnter(routeTo, routeFrom, next) {
+    VaccineService.getVaccines(5, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        next((comp) => {
+          comp.vaccines = response.data
+          comp.totalitems = response.headers['x-total-count']
+        })
       })
-    })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
   },
-  method: {
-    click() {
-      this.$router.push({
-        name: 'PatientDetail',
-        params: { id: this.vaccine.patient.id }
+  // eslint-disable-next-line no-unused-vars
+  beforeRouteUpdate(routeTo, routeFrom, next) {
+    VaccineService.getVaccines(5, parseInt(routeTo.query.page) || 1)
+      .then((response) => {
+        this.vaccines = response.data
+        this.totalitems = response.headers['x-total-count']
+        next()
       })
+      .catch(() => {
+        next({ name: 'NetworkError' })
+      })
+  },
+  computed: {
+    hasNextPage() {
+      let totalPages = Math.ceil(this.totalitems / 5)
+      return this.page < totalPages
     }
   }
 }
