@@ -50,15 +50,9 @@ export default {
         (response) => {
           console.log(response)
           // this.$router.push({ name: 'Layout', params: { id: this.patient.id } })
-          this.$router.go(0)
+          //this.$router.go(0)
         }
       )
-      this.GStore.flashMessage = 'Your comment has been added'
-      setTimeout(() => {
-        this.GStore.flashMessage = ''
-      }, 3000)
-      //      this.$router.go(0)
-    }
   },
   computed: {
     isDoctor() {
