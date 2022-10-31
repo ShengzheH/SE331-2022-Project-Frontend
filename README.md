@@ -1,24 +1,27 @@
-# project
+# Project Information
 
-## Project setup
+## Project member
 ```
-npm install
+Shengzhe Huang 632115517 (old account:649529448)
+Haolong Huai   632115515 (old account:649529444)
 ```
 
-### Compiles and hot-reloads for development
+### web application url
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### backend url
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### SE331-2022-Project-Frontend Github url
 ```
-npm run lint
+https://github.com/ShengzheH/SE331-2022-Project-Frontend/
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### SE331-2022-Project-Backend Github url
+```
+https://github.com/ShengzheH/SE331-2022-Project-Backend/
+```
