@@ -54,11 +54,12 @@ export default {
         }
       )
   },
-  computed: {
-    isDoctor() {
-      return AuthService.hasRoles('ROLE_DOCTOR')
+    computed: {
+      isDoctor() {
+        return AuthService.hasRoles('ROLE_DOCTOR')
+      }
     }
-  }
+  }  
 }
 </script>
 <style scoped>
